@@ -5,19 +5,11 @@ timestamp () {
 }
 
 LOG_PATH="/var/log/rsync_backup/"
-DOCUMENT_LOG="${LOG_PATH}$(timestamp)-documents.log"
-SCRIPTS_LOG="${LOG_PATH}$(timestamp)-scripts.log"
 NETWORK_LOG="${LOG_PATH}$(timestamp)-network.log"
 
 if [ ! -d $LOG_PATH ]; then
   mkdir $LOG_PATH
 fi
 
-# Sichere Dokumente auf D:
-rsync -au /home/daniel/Dokumente/ /mnt/daten/Dokumente/ --log-file=$DOCUMENT_LOG
-
-# Sichere Skripte auf D:
-rsync -au /home/daniel/bin/ /mnt/daten/Dokumente/scripts/ --log-file=$SCRIPTS_LOG
-
 # Sichere alle Daten auf dem Server
-rsync -auz /mnt/daten root@freenas:/mnt/backup-pool --exclude="\$RECYCLE.BIN" --exclude="found.000" --exclude="System Volume Information" --exclude="node_modules" --exclude="Recovery" --exclude="desktop.ini" --exclude=".Trash-1000" --log-file=$NETWORK_LOG
+rsync -auz /home/daniel/documents root@freenas:/mnt/backup-pool --exclude="node_modules" --log-file=$NETWORK_LOG

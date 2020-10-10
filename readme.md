@@ -34,3 +34,9 @@ $ su - root
 $ crontab -e
 0 */2 * * * /home/daniel/bin/save-data
 ```
+
+## Update Arch Rechner (10.10.2020)
+
+Das Skript wird über einen Symlink von `~/bin` nach `/usr/bin` verfügbar gemacht.
+
+Das crontab wird für den root user angelegt und führt das Skript unter `/usr/bin` aus.
