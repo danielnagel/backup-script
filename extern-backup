@@ -1,0 +1,14 @@
+#!/bin/bash
+
+timestamp () {
+  date +"%y%m%d%H%M%S"
+}
+
+LOG_PATH="/var/log/rsync_backup/"
+EXTERN_LOG="${LOG_PATH}$(timestamp)-extern.log"
+
+if [ ! -d $LOG_PATH ]; then
+  mkdir $LOG_PATH
+fi
+
+rsync -auzz /home/daniel/documents /run/media/daniel/Elements --exclude="node_modules" --log-file=$EXTERN_LOG
